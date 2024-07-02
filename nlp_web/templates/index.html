@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>말하기 전에 생각했나요?</title>
+    <!-- Bootstrap CSS 추가 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f0f2f5;
+            color: #333;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .container {
+            max-width: 800px;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 12px 24px 0 rgba(0,0,0,0.15);
+            margin-top: 50px;
+        }
+        .btn-primary {
+            background-color: #0056b3;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+        }
+        .result {
+            color: #dc3545;
+            font-weight: bold;
+        }
+        .hate-type-list {
+            background-color: #e9ecef;
+            border-radius: 5px;
+            padding: 15px;
+            margin-top: 20px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <div class="container text-left">
+        <h1>말하기 전에 생각했나요?</h1>
+        <p>혐오 표현을 사전에 감지하고 선한 댓글만 작성하도록 도와주는 서비스입니다.</p>
+        <br>
+        <form method="post">
+            <div class="form-group">
+                <label for="commentInput" class="form-label">- 검사하고 싶은 댓글을 입력하세요:</label>
+                <input type="text" class="form-control" id="text" name="text" placeholder="여기에 댓글을 입력하세요." required>
+            </div>
+            <div class="text-end"> 
+                <button type="submit" class="btn btn-primary mt-3" onclick="checkComment()">댓글 검사하기</button>
+            </div>
+        </form>
+        {% if result %}
+            {% if result == "일반문장" %}
+                <div class="alert alert-success mt-4" role="alert">
+                    <p>사용자가 입력하신 댓글: </p>
+                    <p>"{{ text }}"은/는 <strong>"일반문장"</strong>으로 혐오 표현이 들어있지 않습니다.</p>
+                    <p>앞으로도 매너 있는 댓글 작성 부탁드릴게요 ^^</p>
+                </div>
+            {% else %}
+                <div class="alert alert-info mt-4" role="alert">
+                    <p>사용자가 입력하신 댓글: </p>
+                    <p>"{{ text }}"에는 </p>
+                    <p><strong>"{{ result }}"</strong>에 대한 혐오 표현이 담겨 있습니다.</p>
+                    <p>앞으로의 댓글 작성에도 유의해주세요!</p>
+                </div>
+            {% endif %}
+        {% endif %}
+
+        
+        <div class="hate-type-list">
+            <h5>혐오 표현 유형:</h5>
+            <ul>
+                <li>여성/가족: 성별에 기반한 혐오 표현</li>
+                <li>남성: 남성에 대한 부정적인 선입견과 평가</li>
+                <li>성소수자: 성적 정체성에 대한 부정적인 발언</li>
+                <li>인종/국적: 특정 인종이나 국적에 대한 차별적인 언급</li>
+                <li>연령: 나이에 따른 차별적인 발언</li>
+                <li>지역: 지역 기반의 편견과 차별</li>
+                <li>종교: 종교적 신념에 대한 혐오나 비방</li>
+                <li>기타 혐오, 악플/욕설: 일반적인 인신공격이나 욕설</li>
+                <li>개인지칭: 특정 개인을 겨냥한 부정적 발언</li>
+                <li>일반문장: 혐오 문장이 없는 일반적인 표현</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS 추가 -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
